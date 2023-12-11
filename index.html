@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+
+<html>
+
+
+
+<head>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+  <title>Age Calculator</title>
+  <style>
+    body {
+      background: url(bg.jpg);
+      display: flex;
+      text-align: center;
+    }
+    .card {
+      background:
+      #010133;
+      color: white;
+      width: 90vw !important;
+    }
+
+    header
+    h3 {
+      background-color: orangered;
+      color: white;
+      font-size: large;
+      padding: 1%;
+    }
+    label {
+      font-size: large;
+      margin: 2%;
+    }
+    input {
+      width: 200px;
+      height: 2rem;
+      font-size: larger;
+      font-family: Arial, Helvetica, sans-serif;
+      text-align: center;
+    }
+    #inputDob {
+      margin: 2%;
+    }
+
+    #currentAge {
+      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+      transition: 0.3s;
+      border-radius: 5px;
+      margin: auto;
+      padding-top: 7%;
+      font-size: larger;
+    }
+  </style>
+</head>
+<body>
+  <div
+    class="card
+    m-auto
+    mt-4 ">
+    <header>
+      <h3
+        class="py-4
+        fw-bolder">AGE
+        CALCULATOR
+        BY
+        HRIDESH</h3>
+    </header>
+    <div>
+      <label>Your Date of Birth</label>
+      <input id="inputDob"
+      type="date"
+      value="2000-01-01" />
+  </div>
+  <br />
+<div>
+  <label>Current Date</label><br>
+  <input id="cdate"
+  type="date"
+  value="" />
+</div>
+<br />
+<button
+class="btn
+btn-primary
+w-50 m-auto"
+type="button"
+onclick="getDOB()">
+Calculate
+
+</button>
+<hr />
+<div id="currentAge"></div>
+
+<script>
+function getDOB() {
+let data =
+
+document.getElementById("inputDob").value;
+
+let dob = new Date(data);
+let day = dob.getDate();
+let month = dob.getMonth();
+let year = dob.getFullYear();
+let now =
+new Date(document.getElementById("cdate").value);
+console.log(now);
+let yearDiff = now.getFullYear() - year;
+let monthDiff = now.getMonth() - month;
+let dateDiff = now.getDate() - day;
+
+
+
+
+
+// Show calculated age as output
+
+// and invalid if wrong input is given
+
+if (yearDiff < 0)
+
+document.getElementById("currentAge").innerHTML = "Invalid Date";
+
+else
+
+document.getElementById("currentAge").innerHTML =
+
+"Your current Age is " + yearDiff + " years "
+
++ monthDiff + " months " + dateDiff + " days";
+}
+
+function currentDate() {
+
+console.log(formatted());
+
+let d = document.getElementById("cdate");
+
+d.value = formatted();
+}
+function formatted(date = new Date()) {
+
+return [
+
+date.getFullYear(),
+
+short(date.getMonth() + 1),
+
+short(date.getDate()),
+
+].join("-");
+}
+
+function short(num) {
+
+return num.toString().padStart(2, "0");
+}
+currentDate(); 4
+</script>
+
+</div>
+
+</body>
+
+
+
+</html>
