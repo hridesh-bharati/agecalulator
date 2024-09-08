@@ -1,166 +1,154 @@
 <!DOCTYPE html>
-
-<html>
-
-
+<html lang="en">
 
 <head>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
   <title>Age Calculator</title>
   <style>
     body {
-      background: url(bg.jpg);
+      background: url('bg.jpg') no-repeat center center fixed;
+      background-size: cover;
       display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      margin: 0;
       text-align: center;
-    }
-    .card {
-      background:
-      #010133;
-      color: white;
-      width: 90vw !important;
     }
 
-    header
-    h3 {
+    .card {
+      background: #010133;
+      color: white;
+      width: 90vw;
+      padding: 2rem;
+      border-radius: 10px;
+    }
+
+    header h3 {
       background-color: orangered;
       color: white;
-      font-size: large;
-      padding: 1%;
+      font-size: 2rem;
+      padding: 1rem;
     }
+
     label {
-      font-size: large;
-      margin: 2%;
+      font-size: 1rem;
+      margin: 1rem 0;
     }
+
     input {
-      width: 200px;
+      width: 50%;
       height: 2rem;
-      font-size: larger;
+      font-size: 1rem;
       font-family: Arial, Helvetica, sans-serif;
       text-align: center;
-    }
-    #inputDob {
-      margin: 2%;
+      margin-bottom: 1rem;
     }
 
     #currentAge {
-      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
       transition: 0.3s;
       border-radius: 5px;
-      margin: auto;
-      padding-top: 7%;
-      font-size: larger;
+      margin-top: 2rem;
+      padding: 1rem;
+      font-size: 1rem;
+      text-align: center;
+    }
+
+    @media screen and (max-width: 768px) {
+      .card {
+        width: 90vw;
+        height: auto;
+        padding: 1rem;
+      }
+
+
+
+      header h3 {
+        font-size: 1.1rem;
+      }
+
+      input {
+        text-align: center;
+        display: block;
+        font-size: 1rem;
+        width: 50%;
+        margin: auto;
+        border-radius: 0;
+        border: 0;
+      }
+
+      marquee {
+        margin-top: 2.4rem;
+        font-size: 0.5rem;
+      }
     }
   </style>
 </head>
+
 <body>
-  <div
-    class="card
-    m-auto
-    mt-4 ">
+  <div class="card">
     <header>
-      <h3
-        class="py-4
-        fw-bolder">AGE
-        CALCULATOR
-        BY
-        HRIDESH</h3>
+      <h3 class="fw-bolder mb-3">AGE CALCULATOR BY HRIDESH</h3>
     </header>
+    <hr>
+    <div class="mt-2">
+      <label for="inputDob">Enter your date of birth</label> <br>
+      <input id="inputDob" type="date" value="2003-05-15" />
+    </div>
     <div>
-      <label>Your Date of Birth</label>
-      <input id="inputDob"
-      type="date"
-      value="2000-01-01" />
+      <label for="cdate">Enter the Current Date</label> <br>
+      <input id="cdate" type="date" />
+    </div>
+    <button class="btn btn-info mt-5 m-auto rounded-0 px-3" type="button" onclick="getDOB()">Calculate your age
+      now</button>
+    <hr />
+    <div id="currentAge"></div>
+    <div class="small mt-2">
+      <marquee behavior="alternate" scrollamount="4" class="m-0 p-0">किसी भी प्रकार का Website या Web App बनने के लिए
+        संपर्क करें। </marquee>
+      <marquee behavior="alternate" scrollamount="3" class="m-0 p-0"> Contact No.: 7267995307
+      </marquee>
+    </div>
+    <script>
+      function getDOB() {
+        let dobValue = document.getElementById("inputDob").value;
+        let dob = new Date(dobValue);
+        let now = new Date(document.getElementById("cdate").value);
+
+        if (isNaN(dob.getTime()) || isNaN(now.getTime())) {
+          document.getElementById("currentAge").innerHTML = "Invalid Date";
+          return;
+        }
+
+        let yearDiff = now.getFullYear() - dob.getFullYear();
+        let monthDiff = now.getMonth() - dob.getMonth();
+        let dateDiff = now.getDate() - dob.getDate();
+
+        if (dateDiff < 0) {
+          monthDiff--;
+          dateDiff += new Date(now.getFullYear(), now.getMonth(), 0).getDate();
+        }
+
+        if (monthDiff < 0) {
+          yearDiff--;
+          monthDiff += 12;
+        }
+
+        document.getElementById("currentAge").innerHTML =
+          `Your current Age is <span class='text-warning'> ${yearDiff} </span> years  <span class='text-warning'>  ${monthDiff} </span> months 
+           <span class='text-warning'>  ${dateDiff} </span> days`;
+      }
+
+      function setCurrentDate() {
+        document.getElementById("cdate").value = new Date().toISOString().split('T')[0];
+      }
+
+      setCurrentDate();
+    </script>
   </div>
-  <br />
-<div>
-  <label>Current Date</label><br>
-  <input id="cdate"
-  type="date"
-  value="" />
-</div>
-<br />
-<button
-class="btn
-btn-primary
-w-50 m-auto"
-type="button"
-onclick="getDOB()">
-Calculate
-
-</button>
-<hr />
-<div id="currentAge"></div>
-
-<script>
-function getDOB() {
-let data =
-
-document.getElementById("inputDob").value;
-
-let dob = new Date(data);
-let day = dob.getDate();
-let month = dob.getMonth();
-let year = dob.getFullYear();
-let now =
-new Date(document.getElementById("cdate").value);
-console.log(now);
-let yearDiff = now.getFullYear() - year;
-let monthDiff = now.getMonth() - month;
-let dateDiff = now.getDate() - day;
-
-
-
-
-
-// Show calculated age as output
-
-// and invalid if wrong input is given
-
-if (yearDiff < 0)
-
-document.getElementById("currentAge").innerHTML = "Invalid Date";
-
-else
-
-document.getElementById("currentAge").innerHTML =
-
-"Your current Age is " + yearDiff + " years "
-
-+ monthDiff + " months " + dateDiff + " days";
-}
-
-function currentDate() {
-
-console.log(formatted());
-
-let d = document.getElementById("cdate");
-
-d.value = formatted();
-}
-function formatted(date = new Date()) {
-
-return [
-
-date.getFullYear(),
-
-short(date.getMonth() + 1),
-
-short(date.getDate()),
-
-].join("-");
-}
-
-function short(num) {
-
-return num.toString().padStart(2, "0");
-}
-currentDate(); 4
-</script>
-
-</div>
-
 </body>
-
-
 
 </html>
